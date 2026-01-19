@@ -1,0 +1,160 @@
+<UserControl x:Class="BarangayCIS.Desktop.Views.ResidentsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:BarangayCIS.Desktop.ViewModels"
+             xmlns:converters="clr-namespace:BarangayCIS.Desktop.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000"
+             Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:IsNotNullConverter x:Key="IsNotNullConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                    Width="300" Height="30" 
+                    Margin="0,0,10,0"
+                    Padding="5"/>
+            <Button Content="Search" Command="{Binding LoadResidentsCommand}" 
+                   Width="80" Height="30" Margin="0,0,10,0"/>
+            <Button Content="New" Command="{Binding NewResidentCommand}" 
+                   Width="80" Height="30" Margin="0,0,10,0"/>
+            <Button Content="Edit" Command="{Binding EditResidentCommand}" 
+                   Width="80" Height="30" Margin="0,0,10,0"
+                   IsEnabled="{Binding SelectedResident, Converter={StaticResource IsNotNullConverter}}"/>
+            <Button Content="Delete" Command="{Binding DeleteResidentCommand}" 
+                   Width="80" Height="30"
+                   IsEnabled="{Binding SelectedResident, Converter={StaticResource IsNotNullConverter}}"/>
+        </StackPanel>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Residents List -->
+            <DataGrid Grid.Column="0" 
+                     ItemsSource="{Binding Residents}"
+                     SelectedItem="{Binding SelectedResident}"
+                     AutoGenerateColumns="False"
+                     IsReadOnly="True"
+                     GridLinesVisibility="All"
+                     HeadersVisibility="Column"
+                     Margin="0,0,10,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding FullName}" Width="*"/>
+                    <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="60"/>
+                    <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="80"/>
+                    <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Details Panel -->
+            <Border Grid.Column="1" BorderBrush="#CCCCCC" BorderThickness="1" Padding="15" Background="#FAFAFA">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Resident Details" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
+                        
+                        <Grid IsEnabled="{Binding IsEditMode}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- First Name -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="First Name:" Margin="0,5" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedResident.FirstName}" Margin="5"/>
+
+                            <!-- Last Name -->
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Last Name:" Margin="0,5" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedResident.LastName}" Margin="5"/>
+
+                            <!-- Middle Name -->
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Middle Name:" Margin="0,5" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedResident.MiddleName}" Margin="5"/>
+
+                            <!-- Date of Birth -->
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Date of Birth:" Margin="0,5" VerticalAlignment="Center"/>
+                            <DatePicker Grid.Row="3" Grid.Column="1" 
+                                       SelectedDate="{Binding SelectedResident.DateOfBirth}" 
+                                       Margin="5"/>
+
+                            <!-- Gender -->
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Gender:" Margin="0,5" VerticalAlignment="Center"/>
+                            <ComboBox Grid.Row="4" Grid.Column="1" SelectedValue="{Binding SelectedResident.Gender}" SelectedValuePath="Content" Margin="5">
+                                <ComboBoxItem Content="Male"/>
+                                <ComboBoxItem Content="Female"/>
+                            </ComboBox>
+
+                            <!-- Address -->
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Address:" Margin="0,5" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedResident.Address}" Margin="5"/>
+
+                            <!-- Contact Number -->
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Contact:" Margin="0,5" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding SelectedResident.ContactNumber}" Margin="5"/>
+
+                            <!-- Email -->
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Email:" Margin="0,5" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedResident.Email}" Margin="5"/>
+
+                            <!-- Civil Status -->
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="Civil Status:" Margin="0,5" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding SelectedResident.CivilStatus}" Margin="5"/>
+
+                            <!-- Occupation -->
+                            <TextBlock Grid.Row="9" Grid.Column="0" Text="Occupation:" Margin="0,5" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding SelectedResident.Occupation}" Margin="5"/>
+
+                            <!-- Checkboxes -->
+                            <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal" Margin="5">
+                                <CheckBox Content="Is Voter" IsChecked="{Binding SelectedResident.IsVoter}" Margin="0,0,15,0"/>
+                                <CheckBox Content="Is PWD" IsChecked="{Binding SelectedResident.IsPWD}" Margin="0,0,15,0"/>
+                                <CheckBox Content="Is Senior" IsChecked="{Binding SelectedResident.IsSenior}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Action Buttons -->
+                        <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
+                            <Button Content="Save" Command="{Binding SaveResidentCommand}" 
+                                   Width="80" Height="30" Margin="5" 
+                                   Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <Button Content="Cancel" Command="{Binding CancelEditCommand}" 
+                                   Width="80" Height="30" Margin="5"
+                                   Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        </StackPanel>
+
+                        <!-- Loading Indicator -->
+                        <TextBlock Text="Loading..." HorizontalAlignment="Center" Margin="0,20,0,0"
+                                  Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

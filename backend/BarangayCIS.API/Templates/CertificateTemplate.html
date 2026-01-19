@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>BARANGAY CLEARANCE</title>
+    <style>
+      @page {
+        margin: 0.5in;
+        size: legal;
+      }
+      @media print {
+        @page {
+          size: 8.5in 14in;
+          margin: 0.5in;
+        }
+        body {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 !important;
+          padding: 0.5in !important;
+          box-shadow: none !important;
+        }
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        background: #f0f0f0;
+      }
+      body {
+        font-family: "Times New Roman", serif;
+        font-size: 11pt;
+        margin: 20px auto;
+        padding: 20px;
+        position: relative;
+        min-height: 13.5in;
+        width: 8.5in;
+        max-width: 8.5in;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Header styles */
+      .header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #000;
+      }
+      .header-logos {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .logo {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        display: block;
+      }
+      .header-text {
+        flex: 1;
+        text-align: center;
+        padding: 0 15px;
+      }
+      .header-text h1 {
+        margin: 0;
+        font-size: 11pt;
+        font-weight: bold;
+        line-height: 1.2;
+      }
+      .header-text h2 {
+        margin: 2px 0;
+        font-size: 10pt;
+        font-weight: bold;
+        line-height: 1.2;
+      }
+      .header-text p {
+        margin: 2px 0;
+        font-size: 9pt;
+        line-height: 1.2;
+      }
+      .header-pb {
+        text-align: right;
+        min-width: 150px;
+      }
+      .pb-photo {
+        width: 70px;
+        height: 85px;
+        border: 1px solid #000;
+        object-fit: cover;
+        margin-bottom: 5px;
+        display: block;
+        margin-left: auto;
+      }
+      .pb-name {
+        font-size: 9pt;
+        font-weight: bold;
+        margin-bottom: 2px;
+        text-align: right;
+      }
+      .pb-title {
+        font-size: 8.5pt;
+        text-align: right;
+      }
+
+      /* Main two-column layout */
+      .main-wrapper {
+        display: flex;
+        gap: 20px;
+        margin-top: 15px;
+        align-items: flex-start;
+      }
+      .left-panel {
+        width: 40%;
+        border-right: 1px solid #ddd;
+        padding-right: 15px;
+      }
+      .right-panel {
+        width: 60%;
+        padding-left: 15px;
+      }
+
+      /* Left column - Council */
+      .council-header {
+        font-size: 12pt;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px;
+        text-decoration: underline;
+      }
+      .council-list {
+        font-size: 9pt;
+        line-height: 1.6;
+      }
+      .council-item {
+        margin-bottom: 8px;
+        text-align: center;
+      }
+      .council-item .name {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 2px;
+      }
+      .council-item .role {
+        font-size: 8.5pt;
+        display: block;
+      }
+
+      /* Right column - Certificate */
+      .cert-header {
+        font-size: 14pt;
+        font-weight: bold;
+        text-align: center;
+        margin: 10px 0 12px 0;
+        text-decoration: underline;
+      }
+      .cert-body {
+        font-size: 10.5pt;
+        line-height: 1.8;
+        text-align: justify;
+      }
+      .cert-body p {
+        margin-bottom: 8px;
+      }
+
+      /* Signatures */
+      .signatures-wrapper {
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .sig-left {
+        width: 48%;
+        text-align: center;
+        margin-top: 30px;
+      }
+      .sig-right {
+        width: 48%;
+        text-align: center;
+      }
+      .sig-line {
+        border-top: 1px solid #000;
+        margin-top: 55px;
+        padding-top: 5px;
+      }
+      .sig-name {
+        font-weight: bold;
+        font-size: 10pt;
+      }
+      .sig-title {
+        font-size: 9pt;
+        margin-top: 3px;
+      }
+      .sig-prefix {
+        font-size: 9pt;
+        margin-bottom: 35px;
+      }
+      .sig-details {
+        margin-top: 25px;
+        text-align: left;
+        font-size: 9pt;
+      }
+      .sig-details p {
+        margin: 3px 0;
+      }
+      .motto-separator {
+        border-top: 1px solid #000;
+        margin: 20px auto;
+        width: 100%;
+        max-width: 7.5in;
+      }
+      .motto-text {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 9pt;
+        font-style: italic;
+      }
+      .motto-wrapper {
+        margin-top: 30px;
+        width: 100%;
+      }
+
+      /* Footer elements */
+      .dry-seal {
+        position: absolute;
+        right: 40px;
+        top: 55%;
+        transform: translateY(-50%);
+        font-size: 8pt;
+        text-align: center;
+        color: #ff0000;
+        font-weight: bold;
+        text-transform: uppercase;
+        z-index: 10;
+      }
+      .dry-seal-watermark {
+        position: absolute;
+        right: 40px;
+        top: 55%;
+        transform: translateY(-50%);
+        opacity: 0.2;
+        font-size: 8pt;
+        text-align: center;
+        color: #999;
+        border: 1px dashed #ccc;
+        padding: 10px;
+        border-radius: 50px;
+        z-index: 1;
+      }
+      .cert-info {
+        font-size: 9pt;
+      }
+      .cert-info p {
+        margin: 3px 0;
+      }
+      .footer-text {
+        position: absolute;
+        bottom: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 9pt;
+        font-style: italic;
+        text-align: center;
+        width: 100%;
+      }
+      .qr-placeholder {
+        position: absolute;
+        bottom: 90px;
+        left: 30px;
+      }
+      .qr-placeholder img {
+        width: 75px;
+        height: 75px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-logos">{{MUNICIPAL_LOGO}} {{BARANGAY_LOGO}}</div>
+      <div class="header-text">
+        <h1>REPUBLIC OF THE PHILIPPINES</h1>
+        <h2>PROVINCE OF BATANGAS</h2>
+        <h2>MUNICIPALITY OF LIAN</h2>
+        <h2>BARANGAY 5</h2>
+        <p>BarangaysingkoJBV@gmail.com</p>
+        <p>San Juan St. Barangay 5, Lian Batangas</p>
+      </div>
+      <div class="header-pb">
+        <div class="pb-name">JASON B. VERGARA</div>
+        <div class="pb-title">Punong Barangay</div>
+      </div>
+    </div>
+
+    <div class="main-wrapper">
+      <div class="left-panel">
+        <div class="council-header">BARANGAY COUNCIL</div>
+        <div class="council-list">
+          <div class="council-item">
+            <span class="name">PERFECTO R. DELAS ALAS</span>
+            <span class="role"
+              >Chairman, Committee on Budget Appropriation and Barangay
+              Affairs</span
+            >
+          </div>
+          <div class="council-item">
+            <span class="name">MARK JOSEPH R. ROTAIRO</span>
+            <span class="role"
+              >Chairman, Committee on Human Rights and Public Works and
+              Infrastructure</span
+            >
+          </div>
+          <div class="council-item">
+            <span class="name">RYAN CARLO Y. RIVERA</span>
+            <span class="role"
+              >Chairman, Committee on Sports Culture and Physical Fitness</span
+            >
+          </div>
+          <div class="council-item">
+            <span class="name">CLEMENCIA C. DAVID</span>
+            <span class="role"
+              >Chairman, Committee on Education and Social Services</span
+            >
+          </div>
+          <div class="council-item">
+            <span class="name">LEODEGARIO L. CABALI</span>
+            <span class="role"
+              >Chairman, Committee on Peace and Order and Public Safety</span
+            >
+          </div>
+          <div class="council-item">
+            <span class="name">PRECILA B. CABALI</span>
+            <span class="role"
+              >Chairman, Committee on Health and Anti-Illegal Drugs, Housing and
+              Community Development</span
+            >
+          </div>
+          <div class="council-item">
+            <span class="name">EDGARDO J. BAGUNAS</span>
+            <span class="role"
+              >Chairman, Committee on Ways and Means, Clean and Green,
+              Environmental Protection and Beautification</span
+            >
+          </div>
+          <div class="council-item">
+            <span class="name">SK chairman</span>
+            <span class="role"
+              >Chairman Committee on Youth and Sports Development</span
+            >
+          </div>
+          <div class="council-item">
+            <span class="name">ROSE ANN D. CORPUZ</span>
+            <span class="role">Secretary</span>
+          </div>
+          <div class="council-item">
+            <span class="name">CORAZON B. GOMEZ</span>
+            <span class="role">Treasurer</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="cert-header">BARANGAY CLEARANCE</div>
+        <div class="cert-body">
+          <p>To whom it May Concern,</p>
+          <p>
+            This is to certify that <strong>{{RESIDENT_NAME}}</strong>,
+            {{CIVIL_STATUS}}Born on <strong>{{BIRTH_DATE}}</strong> resident of
+            <strong>{{RESIDENT_ADDRESS}}</strong>,
+          </p>
+          <p>
+            He/She is Known to be a person with good moral character and law
+            abiding citizen for He/She was not commited nor been involved in any
+            kind unlawful activities in this Barangay.
+          </p>
+          <p>
+            Signed this <strong>{{ISSUE_DATE}}</strong> at barangay 5, lian
+            batangas.
+          </p>
+        </div>
+
+        <div class="signatures-wrapper">
+          <div class="sig-left">
+            <div class="sig-prefix">
+              <strong>For and by the authority of the</strong>
+            </div>
+            <div class="sig-line">
+              <div class="sig-name">ROSE ANN D. CORPUZ</div>
+              <div class="sig-title">Barangay Secretary</div>
+            </div>
+            <div class="sig-details">
+              <p><strong>CLEARANCE NO:</strong> {{CERTIFICATE_NUMBER}}</p>
+              <p><strong>OR NO. :</strong></p>
+              <p><strong>ISSUED ON :</strong> {{ISSUE_DATE_FORMATTED}}</p>
+              <p><strong>ISSUED AT :</strong> BARANGAY 5, LIAN BATANGAS</p>
+            </div>
+          </div>
+          <div class="sig-right">
+            <div class="sig-line">
+              <div class="sig-name">HON. JASON B. VERGARA</div>
+              <div class="sig-title">PUNONG BARANGAY</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="motto-wrapper">
+      <div class="motto-separator"></div>
+      <div class="motto-text">
+        "Malasakit at pagmamahal ang para sa inyo ay para sa inyo"
+      </div>
+    </div>
+
+    <div class="dry-seal-watermark"></div>
+    <div class="dry-seal">NOT VALID WITHOUT<br />OFFICIAL DRY SEAL</div>
+
+    <script>
+      (function () {
+        function triggerPrint() {
+          window.print();
+        }
+        if (document.readyState === "complete") {
+          setTimeout(triggerPrint, 500);
+        } else {
+          window.addEventListener("load", function () {
+            setTimeout(triggerPrint, 500);
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<Window x:Class="BarangayCIS.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BarangayCIS.Desktop"
+        mc:Ignorable="d"
+        Title="Barangay Citizen Information System" Height="800" Width="1400"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#2196F3" Padding="15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Barangay Citizen Information System" 
+                          FontSize="20" FontWeight="Bold" 
+                          Foreground="White" 
+                          VerticalAlignment="Center"/>
+                
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock x:Name="UserInfoText" 
+                              Foreground="White" 
+                              VerticalAlignment="Center" 
+                              Margin="0,0,15,0"/>
+                    <Button Content="Logout" 
+                           Click="LogoutButton_Click"
+                           Background="#1976D2" 
+                           Foreground="White"
+                           Padding="15,5"
+                           BorderThickness="0"
+                           Cursor="Hand"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Sidebar Navigation -->
+            <Border Grid.Column="0" Background="#F5F5F5" BorderBrush="#E0E0E0" BorderThickness="0,0,1,0">
+                <ListBox x:Name="NavigationListBox" 
+                        SelectionChanged="NavigationListBox_SelectionChanged"
+                        BorderThickness="0"
+                        Background="Transparent">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="15,12"/>
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#E3F2FD"/>
+                                    <Setter Property="Foreground" Value="#1976D2"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#E0E0E0"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBoxItem Content="Dashboard" Tag="Dashboard"/>
+                    <ListBoxItem Content="Residents" Tag="Residents"/>
+                    <ListBoxItem Content="Certificates" Tag="Certificates"/>
+                    <ListBoxItem Content="Incidents" Tag="Incidents"/>
+                    <ListBoxItem Content="Financial" Tag="Financial"/>
+                    <ListBoxItem Content="Projects" Tag="Projects"/>
+                    <ListBoxItem Content="Health" Tag="Health"/>
+                    <ListBoxItem Content="BHW" Tag="BHW"/>
+                    <ListBoxItem Content="Senior Citizen" Tag="SeniorCitizen"/>
+                    <ListBoxItem Content="Reports" Tag="Reports"/>
+                    <ListBoxItem Content="Announcements" Tag="Announcements"/>
+                    <ListBoxItem Content="Staff" Tag="Staff"/>
+                    <ListBoxItem Content="Inventory" Tag="Inventory"/>
+                    <ListBoxItem Content="Business Permits" Tag="BusinessPermits"/>
+                    <ListBoxItem Content="Suggestions" Tag="Suggestions"/>
+                    <ListBoxItem Content="Disaster" Tag="Disaster"/>
+                </ListBox>
+            </Border>
+            
+            <!-- Content Area -->
+            <ContentControl x:Name="ContentArea" Grid.Column="1" Margin="20">
+                <TextBlock Text="Welcome to Barangay CIS" 
+                          FontSize="24" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"
+                          Foreground="#666"/>
+            </ContentControl>
+        </Grid>
+    </Grid>
+</Window>
