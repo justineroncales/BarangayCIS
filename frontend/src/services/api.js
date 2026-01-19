@@ -3,7 +3,10 @@ import axios from "axios";
 // Detect API base URL - use current host if accessed via network, otherwise localhost
 const getApiBaseURL = () => {
   // If accessed via IP address (network), use that IP
-  if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+  if (
+    window.location.hostname !== "localhost" &&
+    window.location.hostname !== "127.0.0.1"
+  ) {
     return `${window.location.protocol}//${window.location.hostname}:5000/api`;
   }
   // Default to localhost for local access

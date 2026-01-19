@@ -133,11 +133,13 @@ The application is configured to accept connections from other PCs on the same n
 **To access from another PC on the same network:**
 
 1. **Find the server PC's IP address:**
+
    - On the server PC, open Command Prompt
    - Run: `ipconfig`
    - Look for "IPv4 Address" (e.g., `192.168.1.100`)
 
 2. **Configure Windows Firewall:**
+
    - Open Windows Firewall on the server PC
    - Add inbound rule for port 5000 (TCP)
    - Or temporarily disable firewall for testing

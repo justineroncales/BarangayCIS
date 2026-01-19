@@ -14,11 +14,13 @@ Write-Host ""
 
 $ErrorActionPreference = "Stop"
 
-# Create output directory
+# Create output directory and get absolute path (SQL Server requires absolute path)
 if (-not (Test-Path $OutputPath)) {
     New-Item -ItemType Directory -Path $OutputPath -Force | Out-Null
 }
 
+# Convert to absolute path
+$OutputPath = (Resolve-Path $OutputPath).Path
 $BackupFile = Join-Path $OutputPath "$DatabaseName.bak"
 $ScriptFile = Join-Path $OutputPath "restore-database.sql"
 
@@ -120,13 +122,7 @@ Write-Host "Restoring database..." -ForegroundColor Green
 `$logicalLogName = "`$DatabaseName_log"
 
 # Restore database
-`$restoreQuery = @"
-RESTORE DATABASE [`$DatabaseName]
-FROM DISK = '`$BackupFile'
-WITH REPLACE,
-MOVE '`$logicalDataName' TO '`$mdfPath',
-MOVE '`$logicalLogName' TO '`$ldfPath'
-"@
+`$restoreQuery = "RESTORE DATABASE [`$DatabaseName] FROM DISK = '`$BackupFile' WITH REPLACE, MOVE '`$logicalDataName' TO '`$mdfPath', MOVE '`$logicalLogName' TO '`$ldfPath'"
 
 Write-Host "Executing restore command..." -ForegroundColor Yellow
 sqlcmd -S `$ServerName -Q `$restoreQuery
